@@ -41,7 +41,7 @@ public class Email implements Serializable{
     @Column(columnDefinition = "TEXT")
     private String text;
 
-    private LocalDateTime senddateEmail;
+    private LocalDateTime sendDateEmail;
     private StatusEmail statusEmail;
 
 }
