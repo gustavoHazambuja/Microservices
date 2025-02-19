@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ms.user.Entities.User;
+import com.ms.user.Producers.UserProducer;
 import com.ms.user.Repositories.UserRepository;
 
 @Service
@@ -16,10 +17,15 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserProducer userProducer;
+
     @Transactional
     public User saveUser(User user){
-        
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        userProducer.publishMessageEmail(user);
+
+        return user;
     }
 
     @Transactional(readOnly = true)
